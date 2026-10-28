@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value="Ovilin Khuiten"/>
+        <attribute name="authors" value="APL121 Student"/>
+        <attribute name="about" value="APL121 Assignment 1 - Topic 13: Winter Temperature Analysis"/>
+        <attribute name="saved" value="2026-10-28 09:00:00 PM"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="weekdays" type="String" array="True" size="7"/>
+            <assign variable="weekdays[0]" value="&quot;Davaa&quot;"/>
+            <assign variable="weekdays[1]" value="&quot;Myagmar&quot;"/>
+            <assign variable="weekdays[2]" value="&quot;Lkhagva&quot;"/>
+            <assign variable="weekdays[3]" value="&quot;Purev&quot;"/>
+            <assign variable="weekdays[4]" value="&quot;Baasan&quot;"/>
+            <assign variable="weekdays[5]" value="&quot;Byamba&quot;"/>
+            <assign variable="weekdays[6]" value="&quot;Nyam&quot;"/>
+            <declare name="temps" type="Real" array="True" size="7"/>
+            <declare name="i" type="Integer"/>
+            <declare name="minTemp" type="Real"/>
+            <declare name="minIndex" type="Integer"/>
+            <assign variable="minIndex" value="0"/>
+            <output expression="&quot;=== OVIIN KHUITEN TOOTOI ===&quot;" newline="True"/>
+            <for variable="i" start="0" end="6" direction="inc" step="1">
+                <do expression="temps[i] &lt; -50 || temps[i] &gt; 20">
+                    <output expression="weekdays[i] &amp; &quot; garigiin temparaturiig (-50C-oos 20C hoorond) oruulna uu: &quot;" newline="True"/>
+                    <input variable="temps[i]"/>
+                    <if expression="temps[i] &lt; -50 || temps[i] &gt; 20">
+                        <then>
+                            <output expression="&quot;Aldaatai utga! Dahin oruulna uu.&quot;" newline="True"/>
+                        </then>
+                        <else/>
+                    </if>
+                </do>
+            </for>
+            <assign variable="minTemp" value="temps[0]"/>
+            <output expression="&quot;&quot;" newline="True"/>
+            <output expression="&quot;=== 7 HOGONII TEMPARATURIIN KHUSNEGT ===&quot;" newline="True"/>
+            <output expression="&quot;Odor | Celsius | Fahrenheit | Angilal&quot;" newline="True"/>
+            <output expression="&quot;----------------------------------------------&quot;" newline="True"/>
+            <for variable="i" start="0" end="6" direction="inc" step="1">
+                <declare name="f" type="Real"/>
+                <assign variable="f" value="celsiusToFahrenheit(temps[i])"/>
+                <declare name="status" type="String"/>
+                <if expression="temps[i] &lt;= -25">
+                    <then>
+                        <assign variable="status" value="&quot;Tas khuiten&quot;"/>
+                    </then>
+                    <else>
+                        <if expression="temps[i] &lt;= -10">
+                            <then>
+                                <assign variable="status" value="&quot;Khuiten&quot;"/>
+                            </then>
+                            <else>
+                                <assign variable="status" value="&quot;Dulaakhan&quot;"/>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+                <output expression="weekdays[i] &amp; &quot; | &quot; &amp; temps[i] &amp; &quot;C | &quot; &amp; f &amp; &quot;F | &quot; &amp; status" newline="True"/>
+                <if expression="temps[i] &lt; minTemp">
+                    <then>
+                        <assign variable="minTemp" value="temps[i]"/>
+                        <assign variable="minIndex" value="i"/>
+                    </then>
+                    <else/>
+                </if>
+            </for>
+            <output expression="&quot;----------------------------------------------&quot;" newline="True"/>
+            <output expression="&quot;Hamgiin khuiten odor: &quot; &amp; weekdays[minIndex] &amp; &quot; (&quot; &amp; minTemp &amp; &quot; C)&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="celsiusToFahrenheit" type="Real" variable="f">
+        <parameters>
+            <parameter name="c" type="Real"/>
+        </parameters>
+        <body>
+            <declare name="f" type="Real"/>
+            <assign variable="f" value="(c * 9.0 / 5.0) + 32.0"/>
+        </body>
+    </function>
+</flowgorithm>
